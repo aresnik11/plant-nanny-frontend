@@ -3,9 +3,16 @@ import PlantImage from './PlantImage'
 
 const Welcome = (props) => {
     return (
-        <div>
+        <div className="welcome">
             <h1>Welcome {props.user.name}</h1>
-            <div className="plant-background">
+            <PlantImage />
+        </div>
+    )
+}
+
+export default Welcome
+
+{/* <div className="plant-background">
                 <div className="stack">
                     <div className="plant-1">
                         <div className="stem">
@@ -152,9 +159,4 @@ const Welcome = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    )
-}
-
-export default Welcome
+            </div> */}

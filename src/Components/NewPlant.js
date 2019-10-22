@@ -52,11 +52,19 @@ class NewPlant extends React.Component {
                     <div className="three fields">
                         <div className="field">
                             <label>Water</label>
-                            <input type="text" name="water" placeholder="Water" value={this.state.water} onChange={this.newPlantInputHandler}/>
+                            <select className="ui dropdown" name="water" onChange={this.newPlantInputHandler} value={this.state.water}>
+                                <option >Low</option>
+                                <option >Medium</option>
+                                <option >High</option>
+                            </select>
                         </div>
                         <div className="field">
                             <label>Light</label>
-                            <input type="text" name="light" placeholder="Light" value={this.state.light} onChange={this.newPlantInputHandler}/>
+                            <select className="ui dropdown" name="light" onChange={this.newPlantInputHandler} value={this.state.light}>
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                            </select>
                         </div>
                         <div className="field">
                             <label>Color</label>

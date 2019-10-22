@@ -29,7 +29,7 @@ class PlantList extends React.Component {
                             let plantId = parseInt(routerProps.match.params.id)
                             let plantObj = this.props.plants.find(plant => plant.id === plantId)
                             let plantNotes = this.props.notes.filter(note => note.plant_id === plantId)
-                            return <Plant plant={plantObj} plantShow notes={plantNotes} noteSubmitHandler={this.props.noteSubmitHandler} user={this.props.user} />
+                            return <Plant plant={plantObj} plantShow notes={plantNotes} noteSubmitHandler={this.props.noteSubmitHandler} user={this.props.user} deletePlant={this.props.deletePlant}/>
                         }} />
                         <Route path="/plants" render={() => {
                             return (

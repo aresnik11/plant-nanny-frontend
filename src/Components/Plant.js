@@ -29,6 +29,7 @@ const Plant = (props) => {
                 <div>
                     <NewNote noteSubmitHandler={props.noteSubmitHandler} plant={props.plant} user={props.user} />
                 </div>
+                <button onClick={() => props.deletePlant(props.plant)}>Delete Plant</button>
             </>
         ) : (
             <Link to={`/plants/${props.plant.id}`} className="plant">

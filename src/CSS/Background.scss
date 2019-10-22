@@ -14,7 +14,7 @@ $stand: #DABD59;
 $size: 200px;
 
 .left {
-  float: left;
+  // float: left;
 }
 
 .right {
@@ -26,7 +26,7 @@ $size: 200px;
   margin: 0;
   // min-width: $size * 3.5;
   // min-height: $size * 4;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   justify-content: space-around;
   align-items: center;

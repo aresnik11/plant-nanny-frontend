@@ -5,7 +5,7 @@ const Note = (props) => {
         <div className="note">
             <div className="ui card">
                 <div className="content">
-                    <div className="header">{props.note.created_at}</div>
+                    <div className="header">{props.note.created_at.slice(0,10)}</div>
                     <div class="description">{props.note.content}</div>
                 </div>
             </div>
