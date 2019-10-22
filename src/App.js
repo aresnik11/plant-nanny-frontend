@@ -61,7 +61,7 @@ class App extends React.Component {
           },
           plants: response.user.plants,
           notes: response.user.notes
-        }, () => this.props.history.push("/"))
+        })
       }
     })
   }
@@ -89,13 +89,12 @@ class App extends React.Component {
           },
           plants: response.user.plants,
           notes: response.user.notes
-        }, () => this.props.history.push("/"))
+        })
       }
     })
   }
 
   plantSubmitHandler = (plant) => {
-    console.log("in plant submit handler", plant)
     fetch("http://localhost:4001/plants", {
       method: "POST",
       headers: {
@@ -105,11 +104,16 @@ class App extends React.Component {
       body: JSON.stringify(plant)
     })
     .then(resp => resp.json())
-    .then(newPlant => {
-      let plantsCopy = [...this.state.plants, newPlant]
-      this.setState({
-        plants: plantsCopy
-      })
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      }
+      else {
+        let plantsCopy = [...this.state.plants, response.plant]
+        this.setState({
+          plants: plantsCopy
+        })
+      }
     })
   }
 
@@ -123,11 +127,16 @@ class App extends React.Component {
       body: JSON.stringify(note)
     })
     .then(resp => resp.json())
-    .then(newNote => {
-      let notesCopy = [...this.state.notes, newNote]
-      this.setState({
-        notes: notesCopy
-      })
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      }
+      else {
+        let notesCopy = [...this.state.notes, response.note]
+        this.setState({
+          notes: notesCopy
+        })
+      }
     })
   }
 
@@ -139,9 +148,11 @@ class App extends React.Component {
   }
 
   deletePlant = (plant) => {
-    let newPlants = [...this.state.plants]
-    newPlants = newPlants.filter((p) => p.id !== plant.id)
     let plantId = plant.id
+    let plantsCopy = [...this.state.plants]
+    let newPlants = plantsCopy.filter(p => p.id !== plant.id)
+    let notesCopy = [...this.state.notes]
+    let newNotes = notesCopy.filter(note => note.plant_id !== plant.id)
     fetch(`http://localhost:4001/plants/${plantId}`, {
       method: "DELETE"
     })
@@ -149,15 +160,13 @@ class App extends React.Component {
     .then(data => { 
       this.props.history.push("/plants")
       this.setState({
-        plants: newPlants
+        plants: newPlants,
+        notes: newNotes
       })
     })
-
-    
   }
 
   render() {
-    console.log(this.state.plants)
     return (
       <div className="App">
         <Header logout={this.logout} user={this.state.user} />  

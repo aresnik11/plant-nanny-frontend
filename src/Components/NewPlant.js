@@ -5,8 +5,8 @@ class NewPlant extends React.Component {
         name: "",
         species: "",
         image: "",
-        water: "",
-        light: "",
+        water: "Low",
+        light: "Low",
         color: "",
         user_id: this.props.user.id
     }
@@ -24,8 +24,8 @@ class NewPlant extends React.Component {
             name: "",
             species: "",
             image: "",
-            water: "",
-            light: "",
+            water: "Low",
+            light: "Low",
             color: ""
         })
     }
@@ -53,9 +53,9 @@ class NewPlant extends React.Component {
                         <div className="field">
                             <label>Water</label>
                             <select className="ui dropdown" name="water" onChange={this.newPlantInputHandler} value={this.state.water}>
-                                <option >Low</option>
-                                <option >Medium</option>
-                                <option >High</option>
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
                             </select>
                         </div>
                         <div className="field">
@@ -64,6 +64,7 @@ class NewPlant extends React.Component {
                                 <option>Low</option>
                                 <option>Medium</option>
                                 <option>High</option>
+                                <option>All</option>
                             </select>
                         </div>
                         <div className="field">
