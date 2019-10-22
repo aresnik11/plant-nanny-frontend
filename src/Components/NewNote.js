@@ -3,7 +3,7 @@ import React from 'react'
 class NewNote extends React.Component {
     state = {
         content: "",
-        user_id: 1,
+        user_id: this.props.user.id,
         plant_id: this.props.plant.id
     }
 

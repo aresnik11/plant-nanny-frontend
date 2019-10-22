@@ -21,8 +21,13 @@ class NoteList extends React.Component {
     render() {
         return (
             <div>
-                <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />
-                {this.makeNotes()}
+                {this.props.notes.length > 0 ? (
+                    <>
+                        <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />
+                        {this.makeNotes()}
+                    </>
+                ) : (<h1>Add a plant first</h1>)
+                }
             </div>
         )
     }

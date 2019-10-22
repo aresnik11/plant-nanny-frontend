@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './Semantic-UI-CSS-master/semantic.min.css'
 import Header from './Components/Header'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import MainContainer from './Containers/MainContainer';
@@ -8,7 +9,9 @@ import Login from './Components/Login'
 
 class App extends React.Component {
   state = {
-    user: {}
+    user: {},
+    plants: [],
+    notes: []
   }
 
   componentDidMount() {
@@ -23,7 +26,12 @@ class App extends React.Component {
         }
       })
       .then(resp => resp.json())
-      .then(user => this.setState({user}))
+      // .then((resp)=> console.log("APP CDM: ", resp))
+      .then(user => this.setState({
+        user: user,
+        plants: user.plants,
+        notes: user.notes
+      }))
     }
   }
 
@@ -38,10 +46,15 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(response => {
-      localStorage.setItem("token", response.token)
-      this.setState({
-        user: response.user
-      })
+      if (response.errors) {
+        console.log(response.errors)
+      }
+      else {
+        localStorage.setItem("token", response.token)
+        this.setState({
+          user: response.user
+        }, () => this.props.history.push("/"))
+      }
     })
   }
 
@@ -56,12 +69,54 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(response => {
-      localStorage.setItem("token", response.token)
-      this.setState({
-        user: response.user
-      })
+      if (response.errors) {
+        console.log(response.errors)
+      }
+      else {
+        localStorage.setItem("token", response.token)
+        this.setState({
+          user: response.user
+        }, () => this.props.history.push("/"))
+      }
     })
   }
+
+  plantSubmitHandler = (plant) => {
+    console.log("in plant submit handler", plant)
+    fetch("http://localhost:4001/plants", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(plant)
+    })
+    .then(resp => resp.json())
+    .then(newPlant => {
+        let plantsCopy = [...this.state.plants, newPlant]
+        this.setState({
+            plants: plantsCopy
+        })
+    })
+  }
+
+noteSubmitHandler = (note) => {
+    fetch("http://localhost:4001/notes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(note)
+    })
+    .then(resp => resp.json())
+    .then(newNote => {
+        let notesCopy = [...this.state.notes, newNote]
+        this.setState({
+            notes: notesCopy
+        })
+    })
+}
 
   logout = () => {
     localStorage.removeItem("token")
@@ -71,18 +126,19 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.user)
     return (
       <div className="App">
-        <Header logout={this.logout}/>        
-        <Switch>
-          <Route path="/signup" render={() => <SignUp signUpSubmitHandler={this.signUpSubmitHandler} />} />
-          <Route path="/login" render={() => <Login loginSubmitHandler={this.loginSubmitHandler} />} />
-          <Route path="/">
-            {localStorage.token ? <MainContainer /> : <Redirect to="/login" />}
-          </Route>
-        </Switch>
-
+        <Header logout={this.logout}/>  
+        <div className="main-container">   
+          <Switch>
+            <Route path="/signup" render={() => <SignUp signUpSubmitHandler={this.signUpSubmitHandler} />} />
+            <Route path="/login" render={() => <Login loginSubmitHandler={this.loginSubmitHandler} />} />
+            {/* if you are not logged in and try to go to any page, redirect to login */}
+            <Route path="/">
+              {localStorage.token ? <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} /> : <Redirect to="/login" />}
+            </Route>
+          </Switch>
+        </div>   
       </div>
     );
   }

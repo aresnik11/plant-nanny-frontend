@@ -21,15 +21,19 @@ const Plant = (props) => {
                     {makeNotes()}
                 </div>
                 <div>
-                    <NewNote noteSubmitHandler={props.noteSubmitHandler} plant={props.plant} />
+                    <NewNote noteSubmitHandler={props.noteSubmitHandler} plant={props.plant} user={props.user} />
                 </div>
             </>
         ) : (
-            <Link to={`/plants/${props.plant.id}`}>
-                <div>
-                    <h2>{props.plant.name}</h2>
-                    <h3>{props.plant.species}</h3>
-                    <img alt={props.plant.name} src={props.plant.image} />
+            <Link to={`/plants/${props.plant.id}`} className="plant">
+                <div className="ui card">
+                    <div className="image">
+                        <img src={props.plant.image} alt={props.plant.name}/>
+                    </div>
+                    <div className="content">
+                        <div className="header">{props.plant.name}</div>
+                        <div className="description">{props.plant.species}</div>
+                    </div>
                 </div>
             </Link>
         )}
