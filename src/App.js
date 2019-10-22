@@ -4,8 +4,7 @@ import './Semantic-UI-CSS-master/semantic.min.css'
 import Header from './Components/Header'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import MainContainer from './Containers/MainContainer';
-import SignUp from './Components/SignUp'
-import Login from './Components/Login'
+import SignUp_Login from './Components/SignUp_Login'
 
 class App extends React.Component {
   state = {

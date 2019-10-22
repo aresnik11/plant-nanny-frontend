@@ -6,6 +6,8 @@ import { Route, Switch } from 'react-router-dom'
 
 class MainContainer extends React.Component {
     render() {
+        console.log("in main", this.state.user)
+        console.log(this.state.plants)
         return (
             <div>
                 {this.props.user.id
