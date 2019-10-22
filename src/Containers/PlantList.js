@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom'
 
 class PlantList extends React.Component {
     state = {
-        searchTerm: ""
+        searchTerm: "",
     }
 
     makePlants = () => {

@@ -15,9 +15,11 @@ class Header extends React.Component {
                     Notes
                 </Link>
                 <div className="right menu">
-                    <a className="item" onClick={this.props.logout}>
-                        Logout
-                    </a>
+                    {this.props.user.id
+                    ?
+                    <a className="item" onClick={this.props.logout}>Logout</a>
+                    :
+                    <Link to="/login" className="item">Login</Link>}
                 </div>
             </div>
         )

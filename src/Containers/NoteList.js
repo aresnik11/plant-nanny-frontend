@@ -26,7 +26,7 @@ class NoteList extends React.Component {
                         <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />
                         {this.makeNotes()}
                     </>
-                ) : (<h1>Add a plant first</h1>)
+                ) : (<h1>Add notes from your plant pages</h1>)
                 }
             </div>
         )

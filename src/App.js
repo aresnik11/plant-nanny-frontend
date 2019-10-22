@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
-import './Semantic-UI-CSS-master/semantic.min.css'
+import './CSS/Background.scss';
+import './CSS/Semantic-UI-CSS-master/semantic.min.css'
+import './CSS/Leaf.css'
 import Header from './Components/Header'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import MainContainer from './Containers/MainContainer';
-import SignUp_Login from './Components/SignUp_Login'
+import Login from './Components/Login'
 
 class App extends React.Component {
   state = {
@@ -25,11 +27,13 @@ class App extends React.Component {
         }
       })
       .then(resp => resp.json())
-      // .then((resp)=> console.log("APP CDM: ", resp))
-      .then(user => this.setState({
-        user: user,
-        plants: user.plants,
-        notes: user.notes
+      .then(response => this.setState({
+        user: {
+          id: response.user.id,
+          name: response.user.name
+        },
+        plants: response.user.plants,
+        notes: response.user.notes
       }))
     }
   }
@@ -46,12 +50,17 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(response => {
       if (response.errors) {
-        console.log(response.errors)
+        alert(response.errors)
       }
       else {
         localStorage.setItem("token", response.token)
         this.setState({
-          user: response.user
+          user: {
+            id: response.user.id,
+            name: response.user.name
+          },
+          plants: response.user.plants,
+          notes: response.user.notes
         }, () => this.props.history.push("/"))
       }
     })
@@ -69,12 +78,17 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(response => {
       if (response.errors) {
-        console.log(response.errors)
+        alert(response.errors)
       }
       else {
         localStorage.setItem("token", response.token)
         this.setState({
-          user: response.user
+          user: {
+            id: response.user.id,
+            name: response.user.name
+          },
+          plants: response.user.plants,
+          notes: response.user.notes
         }, () => this.props.history.push("/"))
       }
     })
@@ -127,12 +141,14 @@ noteSubmitHandler = (note) => {
   render() {
     return (
       <div className="App">
-        <Header logout={this.logout}/>  
+        <Header logout={this.logout} user={this.state.user} />  
         <div className="main-container">   
           <Switch>
-            <Route path="/signup" render={() => <SignUp signUpSubmitHandler={this.signUpSubmitHandler} />} />
-            <Route path="/login" render={() => <Login loginSubmitHandler={this.loginSubmitHandler} />} />
-            {/* if you are not logged in and try to go to any page, redirect to login */}
+            {/* if you are logged in and try to go to /login, redirect to welcome page. Otherwise go to login */}
+            <Route path="/login">
+              {localStorage.token ? <Redirect to="/"/> : <Login signUpSubmitHandler={this.signUpSubmitHandler} loginSubmitHandler={this.loginSubmitHandler} />}
+            </Route>
+            {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page */}
             <Route path="/">
               {localStorage.token ? <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} /> : <Redirect to="/login" />}
             </Route>
