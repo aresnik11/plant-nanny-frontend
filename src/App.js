@@ -97,39 +97,39 @@ class App extends React.Component {
   plantSubmitHandler = (plant) => {
     console.log("in plant submit handler", plant)
     fetch("http://localhost:4001/plants", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(plant)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(plant)
     })
     .then(resp => resp.json())
     .then(newPlant => {
-        let plantsCopy = [...this.state.plants, newPlant]
-        this.setState({
-            plants: plantsCopy
-        })
+      let plantsCopy = [...this.state.plants, newPlant]
+      this.setState({
+        plants: plantsCopy
+      })
     })
   }
 
-noteSubmitHandler = (note) => {
+  noteSubmitHandler = (note) => {
     fetch("http://localhost:4001/notes", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(note)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(note)
     })
     .then(resp => resp.json())
     .then(newNote => {
-        let notesCopy = [...this.state.notes, newNote]
-        this.setState({
-            notes: notesCopy
-        })
+      let notesCopy = [...this.state.notes, newNote]
+      this.setState({
+        notes: notesCopy
+      })
     })
-}
+  }
 
   logout = () => {
     localStorage.removeItem("token")
@@ -138,7 +138,26 @@ noteSubmitHandler = (note) => {
     })
   }
 
+  deletePlant = (plant) => {
+    let newPlants = [...this.state.plants]
+    newPlants = newPlants.filter((p) => p.id !== plant.id)
+    let plantId = plant.id
+    fetch(`http://localhost:4001/plants/${plantId}`, {
+      method: "DELETE"
+    })
+    .then(resp => resp.json())
+    .then(data => { 
+      this.props.history.push("/plants")
+      this.setState({
+        plants: newPlants
+      })
+    })
+
+    
+  }
+
   render() {
+    console.log(this.state.plants)
     return (
       <div className="App">
         <Header logout={this.logout} user={this.state.user} />  
@@ -150,7 +169,7 @@ noteSubmitHandler = (note) => {
             </Route>
             {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page */}
             <Route path="/">
-              {localStorage.token ? <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} /> : <Redirect to="/login" />}
+              {localStorage.token ? <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} deletePlant={this.deletePlant}/> : <Redirect to="/login" />}
             </Route>
           </Switch>
         </div>   

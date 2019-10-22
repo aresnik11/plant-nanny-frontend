@@ -37,8 +37,8 @@
 }
 
 .main-container {
-  /* margin-left: 2%;
-  margin-right: 2%; */
+  margin-left: 2%;
+  margin-right: 2%;
   margin-top: 75px;
   margin-bottom: 75px;
 }
@@ -53,6 +53,18 @@
 }
 
 .test {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr; */
+  text-align: center;
+  margin-top: 10%;
+}
+
+.welcome {
+  /* text-align: center; */
+  margin: 10%;
+  /* margin-top: 10%;
+  margin-bottom: 10%; */
+  margin-left: 29%;
+  /* margin-right: 35%; */
+  position: fixed;
 }

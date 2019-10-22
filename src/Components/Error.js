@@ -6,12 +6,8 @@ import BackgroundLeft from './BackgroundLeft'
 const Error = () => {
     return (
         <div className="test">
+            <h1>Sorry, we can't find that page</h1>
             <BackgroundLeft />
-            <div>
-                <h1>Sorry, we can't find that page</h1>
-                <PlantImage />
-            </div>
-            <BackgroundRight />
         </div>
     )
 }
