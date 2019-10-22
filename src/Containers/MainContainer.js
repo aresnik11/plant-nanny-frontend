@@ -7,19 +7,32 @@ import { Route, Switch } from 'react-router-dom'
 class MainContainer extends React.Component {
     state = {
         plants: [],
-        notes: []
+        notes: [], 
+        user: {}
       }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.user !== this.props.user) {
+            this.setState({
+                user: {...this.props.user}
+            })
+        }
+    }
     
-      componentDidMount() {
-        fetch(`http://localhost:4001/users/1`)
-        .then(resp => resp.json())
-        .then(data => this.setState({
-          plants: data.plants,
-          notes: data.notes
-        }))
-      }
+    componentDidMount() {
+        if (this.state.user) {
+            fetch(`http://localhost:4001/users/${this.state.user.id}`)
+            .then(resp => resp.json())
+            .then(data => this.setState({
+              plants: data.plants,
+              notes: data.notes
+            }))
+        } else {
+            console.log("everything is undefined")
+        }
+    }
     
-      plantSubmitHandler = (plant) => {
+    plantSubmitHandler = (plant) => {
         fetch("http://localhost:4001/plants", {
             method: "POST",
             headers: {
@@ -35,7 +48,7 @@ class MainContainer extends React.Component {
                 plants: plantsCopy
             })
         })
-      }
+    }
     
     noteSubmitHandler = (note) => {
         fetch("http://localhost:4001/notes", {
@@ -56,6 +69,8 @@ class MainContainer extends React.Component {
     }
 
     render() {
+        console.log("in main", this.state.user)
+        console.log(this.state.plants)
         return (
             <div>
                 <Switch>

@@ -3,8 +3,7 @@ import './App.css';
 import Header from './Components/Header'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import MainContainer from './Containers/MainContainer';
-import SignUp from './Components/SignUp'
-import Login from './Components/Login'
+import SignUp_Login from './Components/SignUp_Login'
 
 class App extends React.Component {
   state = {
@@ -41,7 +40,7 @@ class App extends React.Component {
       localStorage.setItem("token", response.token)
       this.setState({
         user: response.user
-      })
+      }, () => this.props.history.push("/"))
     })
   }
 
@@ -59,7 +58,7 @@ class App extends React.Component {
       localStorage.setItem("token", response.token)
       this.setState({
         user: response.user
-      })
+      }, () => this.props.history.push("/"))
     })
   }
 
@@ -76,10 +75,9 @@ class App extends React.Component {
       <div className="App">
         <Header logout={this.logout}/>        
         <Switch>
-          <Route path="/signup" render={() => <SignUp signUpSubmitHandler={this.signUpSubmitHandler} />} />
-          <Route path="/login" render={() => <Login loginSubmitHandler={this.loginSubmitHandler} />} />
+          <Route path="/signup_login" render={() => <SignUp_Login signUpSubmitHandler={this.signUpSubmitHandler} loginSubmitHandler={this.loginSubmitHandler}/>} />
           <Route path="/">
-            {localStorage.token ? <MainContainer /> : <Redirect to="/login" />}
+            {localStorage.token ? <MainContainer user={this.state.user}/> : <Redirect to="/signup_login" />}
           </Route>
         </Switch>
 

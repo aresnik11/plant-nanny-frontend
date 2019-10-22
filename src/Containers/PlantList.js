@@ -43,7 +43,7 @@ class PlantList extends React.Component {
                             )
                         }} />
                     </Switch>
-                ) : (<h1>Loading</h1>)}
+                ) : (<NewPlant plantSubmitHandler={this.props.plantSubmitHandler} />)}
             </div>
         )
     }
