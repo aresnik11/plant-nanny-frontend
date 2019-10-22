@@ -20,15 +20,18 @@ class NoteList extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 {this.props.notes.length > 0 ? (
                     <>
                         <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />
-                        {this.makeNotes()}
+                        <br/><br/>
+                        <div className="ui cards">
+                            {this.makeNotes()}
+                        </div>
                     </>
                 ) : (<h1>Add notes from your plant pages</h1>)
                 }
-            </div>
+            </>
         )
     }
 }

@@ -22,7 +22,7 @@ class PlantList extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 {this.props.plants.length > 0 ? (
                     <Switch>
                         <Route path="/plants/:id" render={(routerProps) => {
@@ -35,8 +35,10 @@ class PlantList extends React.Component {
                             return (
                                 <>
                                     <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />
+                                    <br/><br/>
                                     <NewPlant plantSubmitHandler={this.props.plantSubmitHandler} user={this.props.user} />
-                                    <div className="plant-list">
+                                    <br/><br/>
+                                    <div className="ui cards">
                                         {this.makePlants()}
                                     </div>
                                 </>
@@ -44,7 +46,7 @@ class PlantList extends React.Component {
                         }} />
                     </Switch>
                 ) : (<NewPlant plantSubmitHandler={this.props.plantSubmitHandler} user={this.props.user} />)}
-            </div>
+            </>
         )
     }
 }

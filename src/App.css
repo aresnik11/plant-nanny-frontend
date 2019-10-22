@@ -21,24 +21,20 @@
   color: #09d3ac;
 }
 
-.plant-list {
-  text-align: center;
+.plant, .note {
   margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
-  width: 90%;
+  margin-top: 2%;
 }
 
-.plant {
-  margin: auto;
-  text-align: center;
-  margin-top: 10%;
+.plant-page {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 10px;
 }
 
 .main-container {
-  /* margin-left: 2%;
-  margin-right: 2%; */
+  margin-left: 2%;
+  margin-right: 2%;
   margin-top: 75px;
   margin-bottom: 75px;
 }
@@ -50,6 +46,10 @@
 .ui.form {
   width: 60%;
   margin: auto;
+}
+
+#plant-image img {
+  height: 290px;
 }
 
 .test {

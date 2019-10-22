@@ -25,10 +25,16 @@ class NewNote extends React.Component {
         return (
             <div>
                 <h1>New Note</h1>
-                <form onSubmit={this.newNoteSubmitHandler}>
+                <form className="ui form" onSubmit={this.newNoteSubmitHandler}>
+                    <div className="field">
+                        <textarea name="content" rows="2" value={this.state.content} onChange={this.newNoteInputHandler}></textarea>
+                    </div>
+                    <button className="ui button" type="submit">Submit</button>
+                </form>
+                {/* <form onSubmit={this.newNoteSubmitHandler}>
                     <textarea name="content" placeholder="content" value={this.state.content} onChange={this.newNoteInputHandler}/>
                     <input type="submit" />
-                </form>
+                </form> */}
             </div>
         )
     }

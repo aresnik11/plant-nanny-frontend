@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router-dom'
 class MainContainer extends React.Component {
     render() {
         return (
-            <div>
+            <>
                 {this.props.user.id
                 ? 
                 <Switch>
@@ -20,7 +20,7 @@ class MainContainer extends React.Component {
                 :
                 <h1>Loading</h1>
                 }
-            </div>
+            </>
         )
     }
 }

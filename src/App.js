@@ -146,11 +146,19 @@ noteSubmitHandler = (note) => {
           <Switch>
             {/* if you are logged in and try to go to /login, redirect to welcome page. Otherwise go to login */}
             <Route path="/login">
-              {localStorage.token ? <Redirect to="/"/> : <Login signUpSubmitHandler={this.signUpSubmitHandler} loginSubmitHandler={this.loginSubmitHandler} />}
+              {localStorage.token
+                ?
+                <Redirect to="/"/>
+                :
+                <Login signUpSubmitHandler={this.signUpSubmitHandler} loginSubmitHandler={this.loginSubmitHandler} />}
             </Route>
             {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page */}
             <Route path="/">
-              {localStorage.token ? <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} /> : <Redirect to="/login" />}
+              {localStorage.token
+                ?
+                <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} />
+                :
+                <Redirect to="/login" />}
             </Route>
           </Switch>
         </div>   
