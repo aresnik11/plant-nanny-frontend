@@ -175,7 +175,7 @@ class App extends React.Component {
             <Route path="/">
               {localStorage.token
                 ?
-                <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} />
+                <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} deletePlant={this.deletePlant} />
                 :
                 <Redirect to="/login" />}
             </Route>

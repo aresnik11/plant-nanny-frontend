@@ -23,7 +23,7 @@ const Plant = (props) => {
                         <h4>{props.plant.color}</h4>
                     </div>
                     <div className="ui cards">
-                        <NoteList notes={props.notes} />
+                        {makeNotes()}
                     </div>
                 </div>
                 <div>
