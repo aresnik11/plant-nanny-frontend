@@ -153,7 +153,7 @@ class App extends React.Component {
     let plantsCopy = [...this.state.plants]
     let newPlants = plantsCopy.filter(p => p.id !== plant.id)
     let notesCopy = [...this.state.notes]
-    let newNotes = notesCopy.filter(note => note.plant_id !== plant.id)
+    let newNotes = notesCopy.filter(note => note.plant.id !== plant.id)
     fetch(`http://localhost:4001/plants/${plantId}`, {
       method: "DELETE"
     })

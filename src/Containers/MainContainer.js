@@ -6,24 +6,23 @@ import Error from '../Components/Error'
 import Loading from '../Components/Loading'
 import { Route, Switch } from 'react-router-dom'
 
-class MainContainer extends React.Component {
-    render() {
-        return (
-            <>
-                {this.props.user.id
-                ? 
-                <Switch>
-                    <Route path="/plants" render={() => <PlantList plants={this.props.plants} notes={this.props.notes} user={this.props.user} plantSubmitHandler={this.props.plantSubmitHandler} noteSubmitHandler={this.props.noteSubmitHandler} deletePlant={this.props.deletePlant}/>} />
-                    <Route path="/notes" render={() => <NoteList notes={this.props.notes} />} />
-                    <Route exact path="/" render={() => <Welcome user={this.props.user} />} />
-                    <Route path="/" component={Error} />
-                </Switch>
-                :
-                <Loading />
-                }
-            </>
-        )
-    }
+const MainContainer = (props) => {
+    return (
+        <>
+            {/* show loading component until we get the user id from props */}
+            {props.user.id
+            ? 
+            <Switch>
+                <Route path="/plants" render={() => <PlantList plants={props.plants} notes={props.notes} user={props.user} plantSubmitHandler={props.plantSubmitHandler} noteSubmitHandler={props.noteSubmitHandler} deletePlant={props.deletePlant}/>} />
+                <Route path="/notes" render={() => <NoteList notes={props.notes} />} />
+                <Route exact path="/" render={() => <Welcome user={props.user} />} />
+                <Route path="/" component={Error} />
+            </Switch>
+            :
+            <Loading />
+            }
+        </>
+    )
 }
 
 export default MainContainer

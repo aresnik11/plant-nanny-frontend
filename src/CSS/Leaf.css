@@ -56,7 +56,7 @@
     height: 20px;
     border-bottom-right-radius: 30px;
     border-top-left-radius: 30px;
-    background: #43C4BA;
+    background: #21ba45;
     animation: voaa 1s infinite alternate ease-in-out;
     transform-style: preserve-3d;
     transform: rotateX(-30deg);
@@ -69,7 +69,7 @@
     height: 20px;
     border-bottom-left-radius: 30px;
     border-top-right-radius: 30px;
-    background: #43C4BA;
+    background: #21ba45;
     animation: voaa 1s infinite alternate ease-in-out;
     transform-style: preserve-3d;
     transform: rotateX(-30deg);
@@ -82,7 +82,7 @@
     height: 20px;
     border-bottom-right-radius: 30px;
     border-top-left-radius: 30px;
-    background: #43C4BA;
+    background: #21ba45;
     animation: voaa 1s infinite alternate ease-in-out;
     transform-style: preserve-3d;
     transform: rotateX(-30deg);
@@ -95,7 +95,7 @@
     height: 20px;
     border-bottom-left-radius: 30px;
     border-top-right-radius: 30px;
-    background: #43C4BA;
+    background: #21ba45;
     animation: voaa 1s infinite alternate ease-in-out;
     transform-style: preserve-3d;
     transform: rotateX(-30deg);

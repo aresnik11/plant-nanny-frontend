@@ -30,6 +30,15 @@
   padding-bottom: 75px;
 }
 
+.right.floated {
+  margin: 1%;
+}
+
+.right.floated.x.green.icon:hover, .right.floated.x.green.icon:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .ui.secondary.pointing.menu {
   background-color: white;
 }
