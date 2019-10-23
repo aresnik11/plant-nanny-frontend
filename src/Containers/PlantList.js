@@ -32,6 +32,7 @@ class PlantList extends React.Component {
                             let plantObj = this.props.plants.find(plant => plant.id === plantId)
                             //only render Plant component if we found the plant object
                             if (plantObj) {
+                                console.log(this.props)
                                 let plantNotes = this.props.notes.filter(note => note.plant.id === plantId)
                                 return <Plant plant={plantObj} notes={plantNotes} noteSubmitHandler={this.props.noteSubmitHandler} user={this.props.user} deletePlant={this.props.deletePlant} deleteNote={this.props.deleteNote} />
                             }

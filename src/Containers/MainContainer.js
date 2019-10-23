@@ -13,8 +13,8 @@ const MainContainer = (props) => {
             {props.user.id
             ? 
             <Switch>
-                <Route path="/plants" render={() => <PlantList plants={props.plants} notes={props.notes} user={props.user} plantSubmitHandler={props.plantSubmitHandler} noteSubmitHandler={props.noteSubmitHandler} deletePlant={this.props.deletePlant} deleteNote={this.props.deleteNote} />} />
-                <Route path="/notes" render={() => <NoteList notes={props.notes} deleteNote={this.props.deleteNote} />} />
+                <Route path="/plants" render={() => <PlantList plants={props.plants} notes={props.notes} user={props.user} plantSubmitHandler={props.plantSubmitHandler} noteSubmitHandler={props.noteSubmitHandler} deletePlant={props.deletePlant} deleteNote={props.deleteNote} />} />
+                <Route path="/notes" render={() => <NoteList notes={props.notes} deleteNote={props.deleteNote} />} />
                 <Route exact path="/" render={() => <Welcome user={props.user} />} />
                 <Route path="/" component={Error} />
             </Switch>

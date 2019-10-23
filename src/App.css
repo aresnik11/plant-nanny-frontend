@@ -51,3 +51,7 @@
 #plant-image img {
   height: 290px;
 }
+
+.plant-info img {
+  width: 90%;
+}

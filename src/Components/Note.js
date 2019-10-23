@@ -6,7 +6,7 @@ const Note = (props) => {
         <div className="note">
             <div className="ui green card">
                 <div className="right floated">
-                    <i className="right floated x green icon" onClick={() => console.log("clicked x")}></i>
+                    <i className="right floated x green icon" onClick={() => props.deleteNote(props.note)}></i>
                 </div>
                 <div className="content">
                     <div className="header">{props.note.created_at.slice(0,10)}</div>

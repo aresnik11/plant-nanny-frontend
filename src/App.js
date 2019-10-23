@@ -183,7 +183,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.notes)
     return (
       <div className="App">
         <Header logout={this.logout} user={this.state.user} />  
