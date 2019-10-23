@@ -167,7 +167,23 @@ class App extends React.Component {
     })
   }
 
+  deleteNote = (note) => {
+    let noteId = note.id
+    let notesCopy = [...this.state.notes]
+    notesCopy = notesCopy.filter(n => n.id !== note.id)
+    fetch(`http://localhost:4001/notes/${noteId}`, {
+      method: "DELETE"
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+        notes: notesCopy
+      })
+    })
+  }
+
   render() {
+    console.log(this.state.notes)
     return (
       <div className="App">
         <Header logout={this.logout} user={this.state.user} />  
@@ -186,7 +202,7 @@ class App extends React.Component {
             <Route path="/">
               {localStorage.token
                 ?
-                <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} deletePlant={this.deletePlant} />
+                <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} deletePlant={this.deletePlant} deleteNote={this.deleteNote}/>
                 :
                 <Redirect to="/login" />}
             </Route>

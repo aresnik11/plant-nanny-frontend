@@ -9,7 +9,7 @@ class NoteList extends React.Component {
 
     makeNotes = () => {
         let filteredNotes = this.props.notes.filter(note => note.content.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
-        return filteredNotes.map(note => <Note key={note.id} note={note} searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />)
+        return filteredNotes.map(note => <Note key={note.id} note={note} searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} deleteNote={this.props.deleteNote}/>)
     }
 
     searchChangeHandler = (e) => {
