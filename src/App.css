@@ -2,41 +2,32 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+.logo {
+  width: 70%;
 }
 
 .plant, .note {
   margin: auto;
-  margin-top: 2%;
+  margin: 1%;
+}
+
+.ui.cards {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .plant-page {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 3fr;
   grid-gap: 10px;
 }
 
 .main-container {
   margin-left: 2%;
   margin-right: 2%;
-  margin-top: 75px;
-  margin-bottom: 75px;
+  padding-top: 75px;
+  padding-bottom: 75px;
 }
 
 .ui.secondary.pointing.menu {
@@ -50,14 +41,4 @@
 
 #plant-image img {
   height: 290px;
-}
-
-.test {
-  text-align: center;
-  margin-top: 10%;
-}
-
-.welcome {
-  margin-left: 29%;
-  position: fixed;
 }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 class Header extends React.Component {
     render() {
         return (
-            <div className="ui huge secondary pointing menu fixed sticky">
+            <div className="ui huge green secondary pointing menu fixed sticky">
                 <Link to="/" className="item">
                     Home
                 </Link>

@@ -2,6 +2,7 @@ import React from 'react'
 import Search from '../Components/Search'
 import NewPlant from '../Components/NewPlant'
 import Plant from '../Components/Plant'
+import Error from '../Components/Error'
 import { Route, Switch } from 'react-router-dom'
 
 class PlantList extends React.Component {
@@ -28,19 +29,26 @@ class PlantList extends React.Component {
                         <Route path="/plants/:id" render={(routerProps) => {
                             let plantId = parseInt(routerProps.match.params.id)
                             let plantObj = this.props.plants.find(plant => plant.id === plantId)
-                            let plantNotes = this.props.notes.filter(note => note.plant_id === plantId)
-                            return <Plant plant={plantObj} plantShow notes={plantNotes} noteSubmitHandler={this.props.noteSubmitHandler} user={this.props.user} deletePlant={this.props.deletePlant}/>
+                            //only render Plant component if we found the plant object
+                            if (plantObj) {
+                                let plantNotes = this.props.notes.filter(note => note.plant_id === plantId)
+                                return <Plant plant={plantObj} plantShow notes={plantNotes} noteSubmitHandler={this.props.noteSubmitHandler} user={this.props.user} deletePlant={this.props.deletePlant}/>
+                            }
+                            //if we couldn't find the plant object, render Error Component
+                            else {
+                                return <Error />
+                            }
                         }} />
                         <Route path="/plants" render={() => {
                             return (
                                 <>
-                                    <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />
-                                    <br/><br/>
-                                    <NewPlant plantSubmitHandler={this.props.plantSubmitHandler} user={this.props.user} />
+                                    <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} type="Plants" />
                                     <br/><br/>
                                     <div className="ui cards">
                                         {this.makePlants()}
                                     </div>
+                                    <br/><br/>
+                                    <NewPlant plantSubmitHandler={this.props.plantSubmitHandler} user={this.props.user} />
                                 </>
                             )
                         }} />

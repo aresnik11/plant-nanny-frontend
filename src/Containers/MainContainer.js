@@ -3,6 +3,7 @@ import PlantList from './PlantList'
 import NoteList from './NoteList'
 import Welcome from '../Components/Welcome'
 import Error from '../Components/Error'
+import Loading from '../Components/Loading'
 import { Route, Switch } from 'react-router-dom'
 
 class MainContainer extends React.Component {
@@ -18,7 +19,7 @@ class MainContainer extends React.Component {
                     <Route path="/" component={Error} />
                 </Switch>
                 :
-                <h1>Loading</h1>
+                <Loading />
                 }
             </>
         )

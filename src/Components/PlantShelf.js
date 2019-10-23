@@ -1,8 +1,8 @@
 import React from 'react'
 
-const BackgroundRight = () => {
+const PlantShelf = () => {
     return (
-        <div className="plant-background right">
+        <div className="plant-background">
             <div className="stack">
                 <div className="stand">
                     <div className="pot">
@@ -49,4 +49,4 @@ const BackgroundRight = () => {
     )
 }
 
-export default BackgroundRight
+export default PlantShelf

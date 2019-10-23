@@ -1,13 +1,12 @@
 import React from 'react'
 import PlantImage from './PlantImage'
-import BackgroundRight from './BackgroundRight'
-import BackgroundLeft from './BackgroundLeft'
+import PlantBooks from './PlantBooks'
 
 const Error = () => {
     return (
-        <div className="test">
+        <div>
             <h1>Sorry, we can't find that page</h1>
-            <BackgroundLeft />
+            <PlantBooks />
         </div>
     )
 }

@@ -23,7 +23,7 @@ class NoteList extends React.Component {
             <>
                 {this.props.notes.length > 0 ? (
                     <>
-                        <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} />
+                        <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} type="Notes" />
                         <br/><br/>
                         <div className="ui cards">
                             {this.makeNotes()}

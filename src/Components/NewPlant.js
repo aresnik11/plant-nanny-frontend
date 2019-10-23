@@ -72,7 +72,7 @@ class NewPlant extends React.Component {
                             <input type="text" name="color" placeholder="Color" value={this.state.color} onChange={this.newPlantInputHandler}/>
                         </div>
                     </div>
-                    <button className="ui button" type="submit">Submit</button>
+                    <button className="ui green basic button" type="submit">Submit</button>
                 </form>
             </div>
         )

@@ -67,6 +67,7 @@ class Login extends React.Component {
                 <div className="ui two column very relaxed stackable grid">
                     <div className="column">
                         <form className="ui form" onSubmit={this.signUpSubmitHandler}>
+                            <br />
                             <div className="field">
                                 <label>Username</label>
                                 <div className="ui left icon input">
@@ -74,7 +75,7 @@ class Login extends React.Component {
                                     <i className="user icon"></i>
                                 </div>
                             </div>
-                            <br /> <br />
+                            <br />
                             <div className="field">
                                 <label>Password</label>
                                 <div className="ui left icon input">
@@ -82,12 +83,14 @@ class Login extends React.Component {
                                     <i className="lock icon"></i>
                                 </div>
                             </div>
-                            <br /> <br />
-                            <button type="submit" className="ui blue button medium" >Sign Up</button>
+                            <br />
+                            <button type="submit" className="ui green basic button medium" >Sign Up</button>
+                            <br />
                         </form>
                     </div>
                     <div className="column">
                         <form className="ui form" onSubmit={this.loginSubmitHandler}>
+                            <br />
                             <div className="field">
                                 <label>Username</label>
                                 <div className="ui left icon input">
@@ -95,7 +98,7 @@ class Login extends React.Component {
                                     <i className="user icon"></i>
                                 </div>
                             </div>
-                            <br /> <br />
+                            <br />
                             <div className="field">
                                 <label>Password</label>
                                 <div className="ui left icon input">
@@ -103,8 +106,9 @@ class Login extends React.Component {
                                     <i className="lock icon"></i>
                                 </div>
                             </div>
-                            <br /> <br />
-                            <button type="submit" className="ui blue button medium" >Login</button>
+                            <br />
+                            <button type="submit" className="ui green basic button medium" >Login</button>
+                            <br />
                         </form>
                     </div>
                 </div>
@@ -112,25 +116,6 @@ class Login extends React.Component {
                     Or
                 </div>
             </div>
-
-
-            // <div>
-            //     <div className="ui form" >
-            //         <form class="three fields" onSubmit={this.signUpSubmitHandler}>
-            //             <input type="text" name="name" value={this.state.signUp.name} placeholder="Name" onChange={this.signUpChangeHandler} />
-            //             <input type="password" name="password" value={this.state.signUp.password} placeholder="Password" onChange={this.signUpChangeHandler} />
-            //             <input type="submit" value="Sign Up"/>
-            //         </form>
-            //     </div>
-            //     <br />
-            //     <div>
-            //         <form className="ui form" onSubmit={this.loginSubmitHandler}>
-            //             <input type="text" name="name" value={this.state.login.name} placeholder="Name" onChange={this.loginChangeHandler} />
-            //             <input type="password" name="password" value={this.state.login.password} placeholder="Password" onChange={this.loginChangeHandler} />
-            //             <input type="submit" value="Login" />
-            //         </form>
-            //     </div>
-            // </div> 
         )
     }
 }

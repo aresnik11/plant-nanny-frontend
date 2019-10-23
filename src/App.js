@@ -7,6 +7,7 @@ import Header from './Components/Header'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import MainContainer from './Containers/MainContainer';
 import Login from './Components/Login'
+import Logo from './Components/Logo'
 
 class App extends React.Component {
   state = {
@@ -171,6 +172,7 @@ class App extends React.Component {
       <div className="App">
         <Header logout={this.logout} user={this.state.user} />  
         <div className="main-container">   
+          <Logo />
           <Switch>
             {/* if you are logged in and try to go to /login, redirect to welcome page. Otherwise go to login */}
             <Route path="/login">

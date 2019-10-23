@@ -1,8 +1,8 @@
 import React from 'react'
 
-const BackgroundLeft = () => {
+const PlantBooks = () => {
     return (
-        <div className="plant-background left">
+        <div className="plant-background">
             <div className="stack">
                 <div className="plant-1">
                     <div className="stem">
@@ -111,4 +111,4 @@ const BackgroundLeft = () => {
     )
 }
 
-export default BackgroundLeft
+export default PlantBooks

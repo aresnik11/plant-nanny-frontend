@@ -29,12 +29,8 @@ class NewNote extends React.Component {
                     <div className="field">
                         <textarea name="content" rows="2" value={this.state.content} onChange={this.newNoteInputHandler}></textarea>
                     </div>
-                    <button className="ui button" type="submit">Submit</button>
+                    <button className="ui green basic button" type="submit">Submit</button>
                 </form>
-                {/* <form onSubmit={this.newNoteSubmitHandler}>
-                    <textarea name="content" placeholder="content" value={this.state.content} onChange={this.newNoteInputHandler}/>
-                    <input type="submit" />
-                </form> */}
             </div>
         )
     }
