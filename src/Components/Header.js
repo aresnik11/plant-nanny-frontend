@@ -5,7 +5,7 @@ class Header extends React.Component {
     render() {
         return (
             <div className="ui huge green secondary pointing menu fixed sticky">
-                <Link to="/" className="item">
+                <Link to="/" className="active item">
                     Home
                 </Link>
                 <Link to="/plants" className="item">

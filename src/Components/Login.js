@@ -84,7 +84,7 @@ class Login extends React.Component {
                                 </div>
                             </div>
                             <br />
-                            <button type="submit" className="ui green basic button medium" >Sign Up</button>
+                            <button type="submit" className="ui green basic button" >Sign Up</button>
                             <br />
                         </form>
                     </div>
@@ -107,7 +107,7 @@ class Login extends React.Component {
                                 </div>
                             </div>
                             <br />
-                            <button type="submit" className="ui green basic button medium" >Login</button>
+                            <button type="submit" className="ui green basic button" >Login</button>
                             <br />
                         </form>
                     </div>

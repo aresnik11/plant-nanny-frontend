@@ -52,6 +52,7 @@
   height: 290px;
 }
 
-.plant-info img {
+.ui.card.plant-info {
   width: 90%;
+  margin: auto;
 }
