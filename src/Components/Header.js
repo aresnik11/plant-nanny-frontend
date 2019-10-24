@@ -28,7 +28,6 @@ class Header extends React.Component {
     }
 
     render() {
-        console.log(this.state.home)
         return (
             <div className="ui huge green secondary pointing menu fixed sticky">
                 <Link to="/" name="home" className={this.state.home ? "active item" : "item"} onClick={(e) => this.changeActive(e)}>
