@@ -51,16 +51,6 @@ class Plant extends React.Component {
                             <button className="ui green basic button" onClick={() => this.props.deletePlant(this.props.plant)}>Delete Plant</button>
                         </div>
                     </div>
-                    {/* <div className="plant-info">
-                        <h1>{this.props.plant.name}</h1>
-                        <h3>{this.props.plant.species}</h3>
-                        <img alt={this.props.plant.name} src={this.props.plant.image} />
-                        <h4>Water: {this.props.plant.water}</h4>
-                        <h4>Light: {this.props.plant.light}</h4>
-                        <h4>Color: {this.props.plant.color}</h4>
-                        <br/>
-                        <button className="ui green basic button" onClick={() => this.props.deletePlant(this.props.plant)}>Delete Plant</button>
-                    </div> */}
                     <div>
                         <Search searchTerm={this.state.searchTerm} searchChangeHandler={this.searchChangeHandler} type="Notes" />
                         <br/><br/>
