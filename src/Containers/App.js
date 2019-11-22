@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
-import './CSS/Background.scss';
-import './CSS/Semantic-UI-CSS-master/semantic.min.css'
-import './CSS/Leaf.css'
-import Header from './Components/Header'
+import '../CSS/App.css';
+import '../CSS/Background.scss';
+import '../CSS/Semantic-UI-CSS-master/semantic.min.css'
+import '../CSS/Leaf.css'
+import Header from '../Components/Header'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
-import MainContainer from './Containers/MainContainer';
-import Login from './Components/Login'
-import Logo from './Components/Logo'
+import MainContainer from './MainContainer';
+import Login from '../Components/Login'
+import Logo from '../Components/Logo'
 
 class App extends React.Component {
   state = {
@@ -17,25 +17,29 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.token) {
-      let token = localStorage.token
-      fetch("http://localhost:4001/autologin", {
+    if (localStorage.getItem("token")) {
+      fetch("http://localhost:4001/auto_login", {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "Authorization": `${token}`
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       })
       .then(resp => resp.json())
-      .then(response => this.setState({
-        user: {
-          id: response.user.id,
-          name: response.user.name
-        },
-        plants: response.user.plants,
-        notes: response.user.notes
-      }))
+      .then(response => {
+        if (response.errors) {
+          this.logout()
+        }
+        else {
+          this.setState({
+            user: {
+              id: response.user.id,
+              name: response.user.name
+            },
+            plants: response.user.plants,
+            notes: response.user.notes
+          })
+        }
+      })
     }
   }
 
@@ -74,7 +78,7 @@ class App extends React.Component {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify(userInfo)
+      body: JSON.stringify({user: userInfo})
     })
     .then(resp => resp.json())
     .then(response => {
@@ -100,7 +104,8 @@ class App extends React.Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify(plant)
     })
@@ -110,7 +115,7 @@ class App extends React.Component {
         alert(response.errors)
       }
       else {
-        let plantsCopy = [...this.state.plants, response.plant]
+        const plantsCopy = [...this.state.plants, response]
         this.setState({
           plants: plantsCopy
         })
@@ -123,7 +128,8 @@ class App extends React.Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify(note)
     })
@@ -133,7 +139,7 @@ class App extends React.Component {
         alert(response.errors)
       }
       else {
-        let notesCopy = [...this.state.notes, response.note]
+        const notesCopy = [...this.state.notes, response]
         this.setState({
           notes: notesCopy
         })
@@ -149,36 +155,50 @@ class App extends React.Component {
   }
 
   deletePlant = (plant) => {
-    let plantId = plant.id
-    let plantsCopy = [...this.state.plants]
-    let newPlants = plantsCopy.filter(p => p.id !== plant.id)
-    let notesCopy = [...this.state.notes]
-    let newNotes = notesCopy.filter(note => note.plant.id !== plant.id)
-    fetch(`http://localhost:4001/plants/${plantId}`, {
-      method: "DELETE"
+    fetch(`http://localhost:4001/plants/${plant.id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
     })
     .then(resp => resp.json())
-    .then(data => { 
-      this.props.history.push("/plants")
-      this.setState({
-        plants: newPlants,
-        notes: newNotes
-      })
+    .then(response => { 
+      if (response.errors) {
+        alert(response.errors)
+      }
+      else {
+        const plantsCopy = [...this.state.plants]
+        const newPlants = plantsCopy.filter(p => p.id !== plant.id)
+        const notesCopy = [...this.state.notes]
+        const newNotes = notesCopy.filter(note => note.plant.id !== plant.id)
+        this.setState({
+          plants: newPlants,
+          notes: newNotes
+        })
+        this.props.history.push("/plants")
+      }
     })
   }
 
   deleteNote = (note) => {
-    let noteId = note.id
-    let notesCopy = [...this.state.notes]
-    notesCopy = notesCopy.filter(n => n.id !== note.id)
-    fetch(`http://localhost:4001/notes/${noteId}`, {
-      method: "DELETE"
+    fetch(`http://localhost:4001/notes/${note.id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
     })
     .then(resp => resp.json())
-    .then(data => {
-      this.setState({
-        notes: notesCopy
-      })
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      }
+      else {
+        const notesCopy = [...this.state.notes]
+        const newNotes = notesCopy.filter(n => n.id !== note.id)
+        this.setState({
+          notes: newNotes
+        })
+      }
     })
   }
 
@@ -192,18 +212,18 @@ class App extends React.Component {
             {/* if you are logged in and try to go to /login, redirect to welcome page. Otherwise go to login */}
             <Route path="/login">
               {localStorage.token
-                ?
-                <Redirect to="/"/>
-                :
-                <Login signUpSubmitHandler={this.signUpSubmitHandler} loginSubmitHandler={this.loginSubmitHandler} />}
+              ?
+              <Redirect to="/"/>
+              :
+              <Login signUpSubmitHandler={this.signUpSubmitHandler} loginSubmitHandler={this.loginSubmitHandler} />}
             </Route>
             {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page */}
             <Route path="/">
               {localStorage.token
-                ?
-                <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} deletePlant={this.deletePlant} deleteNote={this.deleteNote}/>
-                :
-                <Redirect to="/login" />}
+              ?
+              <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} deletePlant={this.deletePlant} deleteNote={this.deleteNote}/>
+              :
+              <Redirect to="/login" />}
             </Route>
           </Switch>
         </div>   
