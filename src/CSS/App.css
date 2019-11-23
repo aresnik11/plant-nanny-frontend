@@ -1,26 +1,11 @@
+/* GENERAL */
 .App {
   text-align: center;
 }
 
-.logo {
-  width: 70%;
-}
-
-.plant, .note {
-  margin: auto;
-  margin: 1%;
-}
-
-.ui.cards {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}
-
-.plant-page {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  grid-gap: 10px;
+/* nav bar */
+.ui.secondary.pointing.menu {
+  background-color: white;
 }
 
 .main-container {
@@ -30,26 +15,49 @@
   padding-bottom: 75px;
 }
 
-.right.floated {
-  margin: 1%;
+.logo {
+  width: 70%;
 }
 
-.right.floated.x.green.icon:hover, .right.floated.x.green.icon:focus {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.ui.secondary.pointing.menu {
-  background-color: white;
-}
-
+/* shrinks width of input fields and centers */
 .ui.form {
   width: 60%;
   margin: auto;
 }
 
+/* PLANT/NOTE CARDS */
+.ui.cards {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.plant, .note {
+  margin: auto;
+  margin: 1%;
+}
+
+/* floats x-button div right on note cards */
+.right.floated {
+  margin: 1%;
+}
+
+/* x-button on note cards */
+.right.floated.x.green.icon:hover, .right.floated.x.green.icon:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* fixed height for plant card image */
 #plant-image img {
   height: 290px;
+}
+
+/* PLANT SHOW PAGE */
+.plant-page {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-gap: 10px;
 }
 
 .ui.card.plant-info {

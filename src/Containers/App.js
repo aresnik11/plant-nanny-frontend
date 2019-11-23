@@ -17,6 +17,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // if there is a token in localStorage, see if we can autologin the user
     if (localStorage.getItem("token")) {
       fetch("http://localhost:4001/auto_login", {
         method: "GET",
@@ -26,9 +27,11 @@ class App extends React.Component {
       })
       .then(resp => resp.json())
       .then(response => {
+        // if we got back an error, weren't able to decode the token so remove token from localStorage via logout function
         if (response.errors) {
           this.logout()
         }
+        // if we were able to decode the token, set state based on response
         else {
           this.setState({
             user: {
@@ -43,6 +46,7 @@ class App extends React.Component {
     }
   }
 
+  // creates a new user in backend with userInfo provided, sets token in localStorage and sets state with user info if successful
   signUpSubmitHandler = (userInfo) => {
     fetch("http://localhost:4001/users", {
       method: "POST",
@@ -71,6 +75,7 @@ class App extends React.Component {
     })
   }
 
+  // verifies if userInfo provided matches user in backend, sets token in localStorage and sets state with user info if successful
   loginSubmitHandler = (userInfo) => {
     fetch("http://localhost:4001/login", {
       method: "POST",
@@ -99,6 +104,37 @@ class App extends React.Component {
     })
   }
 
+  // removes token from localStorage and resets user in state
+  logout = () => {
+    localStorage.removeItem("token")
+    this.setState({
+      user: {}
+    })
+  }
+
+  // auto logs in to demo account
+  demoLogIn = () => {
+    fetch("http://localhost:4001/demo_login")
+    .then(resp => resp.json())
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      }
+      else {
+        localStorage.setItem("token", response.token)
+        this.setState({
+          user: {
+            id: response.user.id,
+            name: response.user.name
+          },
+          plants: response.user.plants,
+          notes: response.user.notes
+        })
+      }
+    })
+  }
+
+  // creates a new plant in backend, if successful adds a new plant to current plants state
   plantSubmitHandler = (plant) => {
     fetch("http://localhost:4001/plants", {
       method: "POST",
@@ -123,6 +159,7 @@ class App extends React.Component {
     })
   }
 
+  // creates a new note in backend, if successful adds a new note to current notes state
   noteSubmitHandler = (note) => {
     fetch("http://localhost:4001/notes", {
       method: "POST",
@@ -147,13 +184,7 @@ class App extends React.Component {
     })
   }
 
-  logout = () => {
-    localStorage.removeItem("token")
-    this.setState({
-      user: {}
-    })
-  }
-
+  // deletes plant in backend, if successful removes the plant from current plants state, and redirects to /plants
   deletePlant = (plant) => {
     fetch(`http://localhost:4001/plants/${plant.id}`, {
       method: "DELETE",
@@ -180,6 +211,7 @@ class App extends React.Component {
     })
   }
 
+  // deletes note in backend, if successful removes the note from current notes state
   deleteNote = (note) => {
     fetch(`http://localhost:4001/notes/${note.id}`, {
       method: "DELETE",
@@ -205,23 +237,37 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {/* Header component renders on every page */}
         <Header logout={this.logout} user={this.state.user} />  
-        <div className="main-container">   
+        <div className="main-container">
+          {/* Logo component renders on every page */}
           <Logo />
           <Switch>
-            {/* if you are logged in and try to go to /login, redirect to welcome page. Otherwise go to login */}
+            {/* if you are logged in and try to go to /login, redirect to welcome page (via main container). Otherwise go to login */}
             <Route path="/login">
               {localStorage.token
               ?
               <Redirect to="/"/>
               :
-              <Login signUpSubmitHandler={this.signUpSubmitHandler} loginSubmitHandler={this.loginSubmitHandler} />}
+              <Login
+                signUpSubmitHandler={this.signUpSubmitHandler}
+                loginSubmitHandler={this.loginSubmitHandler}
+                demoLogIn={this.demoLogIn}
+              />}
             </Route>
-            {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page */}
+            {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page (via main container) */}
             <Route path="/">
               {localStorage.token
               ?
-              <MainContainer user={this.state.user} plants={this.state.plants} notes={this.state.notes} noteSubmitHandler={this.noteSubmitHandler} plantSubmitHandler={this.plantSubmitHandler} deletePlant={this.deletePlant} deleteNote={this.deleteNote}/>
+              <MainContainer
+                user={this.state.user}
+                plants={this.state.plants}
+                notes={this.state.notes}
+                noteSubmitHandler={this.noteSubmitHandler}
+                plantSubmitHandler={this.plantSubmitHandler}
+                deletePlant={this.deletePlant}
+                deleteNote={this.deleteNote}
+              />
               :
               <Redirect to="/login" />}
             </Route>
