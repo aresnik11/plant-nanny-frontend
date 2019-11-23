@@ -8,6 +8,7 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import MainContainer from './MainContainer';
 import Login from '../Components/Login'
 import Logo from '../Components/Logo'
+import ScrollToTop from '../Components/ScrollToTop'
 
 class App extends React.Component {
   state = {
@@ -242,36 +243,39 @@ class App extends React.Component {
         <div className="main-container">
           {/* Logo component renders on every page */}
           <Logo />
-          <Switch>
-            {/* if you are logged in and try to go to /login, redirect to welcome page (via main container). Otherwise go to login */}
-            <Route path="/login">
-              {localStorage.token
-              ?
-              <Redirect to="/"/>
-              :
-              <Login
-                signUpSubmitHandler={this.signUpSubmitHandler}
-                loginSubmitHandler={this.loginSubmitHandler}
-                demoLogIn={this.demoLogIn}
-              />}
-            </Route>
-            {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page (via main container) */}
-            <Route path="/">
-              {localStorage.token
-              ?
-              <MainContainer
-                user={this.state.user}
-                plants={this.state.plants}
-                notes={this.state.notes}
-                noteSubmitHandler={this.noteSubmitHandler}
-                plantSubmitHandler={this.plantSubmitHandler}
-                deletePlant={this.deletePlant}
-                deleteNote={this.deleteNote}
-              />
-              :
-              <Redirect to="/login" />}
-            </Route>
-          </Switch>
+          {/* auto scrolls each page back to the top */}
+          <ScrollToTop>
+            <Switch>
+              {/* if you are logged in and try to go to /login, redirect to welcome page (via main container). Otherwise go to login */}
+              <Route path="/login">
+                {localStorage.token
+                ?
+                <Redirect to="/"/>
+                :
+                <Login
+                  signUpSubmitHandler={this.signUpSubmitHandler}
+                  loginSubmitHandler={this.loginSubmitHandler}
+                  demoLogIn={this.demoLogIn}
+                />}
+              </Route>
+              {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page (via main container) */}
+              <Route path="/">
+                {localStorage.token
+                ?
+                <MainContainer
+                  user={this.state.user}
+                  plants={this.state.plants}
+                  notes={this.state.notes}
+                  noteSubmitHandler={this.noteSubmitHandler}
+                  plantSubmitHandler={this.plantSubmitHandler}
+                  deletePlant={this.deletePlant}
+                  deleteNote={this.deleteNote}
+                />
+                :
+                <Redirect to="/login" />}
+              </Route>
+            </Switch>
+          </ScrollToTop>
         </div>   
       </div>
     );
