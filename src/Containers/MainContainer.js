@@ -11,7 +11,7 @@ const MainContainer = (props) => {
     if (props.user.id) {
         return (
             <Switch>
-                <Route path="/plants"render={() =>
+                <Route path="/plants" render={() =>
                     <PlantList
                         plants={props.plants}
                         notes={props.notes}
