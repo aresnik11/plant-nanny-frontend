@@ -19,7 +19,7 @@ class App extends React.Component {
   componentDidMount() {
     // if there is a token in localStorage, see if we can autologin the user
     if (localStorage.getItem("token")) {
-      fetch("http://localhost:4001/auto_login", {
+      fetch("https://plant-nanny-backend.herokuapp.com/auto_login", {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -48,7 +48,7 @@ class App extends React.Component {
 
   // creates a new user in backend with userInfo provided, sets token in localStorage and sets state with user info if successful
   signUpSubmitHandler = (userInfo) => {
-    fetch("http://localhost:4001/users", {
+    fetch("https://plant-nanny-backend.herokuapp.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ class App extends React.Component {
 
   // verifies if userInfo provided matches user in backend, sets token in localStorage and sets state with user info if successful
   loginSubmitHandler = (userInfo) => {
-    fetch("http://localhost:4001/login", {
+    fetch("https://plant-nanny-backend.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +114,7 @@ class App extends React.Component {
 
   // auto logs in to demo account
   demoLogIn = () => {
-    fetch("http://localhost:4001/demo_login")
+    fetch("https://plant-nanny-backend.herokuapp.com/demo_login")
     .then(resp => resp.json())
     .then(response => {
       if (response.errors) {
@@ -136,7 +136,7 @@ class App extends React.Component {
 
   // creates a new plant in backend, if successful adds a new plant to current plants state
   plantSubmitHandler = (plant) => {
-    fetch("http://localhost:4001/plants", {
+    fetch("https://plant-nanny-backend.herokuapp.com/plants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -161,7 +161,7 @@ class App extends React.Component {
 
   // creates a new note in backend, if successful adds a new note to current notes state
   noteSubmitHandler = (note) => {
-    fetch("http://localhost:4001/notes", {
+    fetch("https://plant-nanny-backend.herokuapp.com/notes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -186,7 +186,7 @@ class App extends React.Component {
 
   // deletes plant in backend, if successful removes the plant from current plants state, and redirects to /plants
   deletePlant = (plant) => {
-    fetch(`http://localhost:4001/plants/${plant.id}`, {
+    fetch(`https://plant-nanny-backend.herokuapp.com/plants/${plant.id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -213,7 +213,7 @@ class App extends React.Component {
 
   // deletes note in backend, if successful removes the note from current notes state
   deleteNote = (note) => {
-    fetch(`http://localhost:4001/notes/${note.id}`, {
+    fetch(`https://plant-nanny-backend.herokuapp.com/notes/${note.id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
