@@ -2,6 +2,7 @@ import React from 'react'
 import Note from '../Components/Note'
 import Search from '../Components/Search'
 import NewNote from '../Components/NewNote'
+import { Switch, Route } from 'react-router-dom'
 
 class NoteList extends React.Component {
     state = {
@@ -31,49 +32,64 @@ class NoteList extends React.Component {
     }
 
     render() {
-        // if there are notes, render search and the notes
-        if (this.props.notes.length) {
-            return (
-                <>
-                    <Search
-                        searchTerm={this.state.searchTerm}
-                        searchChangeHandler={this.searchChangeHandler}
-                        type="Notes"
-                    />
-                    <br/><br/>
-                    <div className="ui cards">
-                        {this.makeNotes()}
-                    </div>
-                    {/* if we're on the plant page, also render new note component */}
-                    {this.props.plant
-                    ?
-                    <>
-                        <br/><br/>
-                        <NewNote
-                            noteSubmitHandler={this.props.noteSubmitHandler}
-                            plant={this.props.plant}
-                            user={this.props.user}
-                        />
-                    </>
-                    :
-                    null}
-                </>
-            )
-        }
-        // if there aren't notes, but we are on the plant page, render new note component
-        else if (this.props.plant) {
-            return (
-                <NewNote
-                    noteSubmitHandler={this.props.noteSubmitHandler}
-                    plant={this.props.plant}
-                    user={this.props.user}
-                />
-            )
-        }
-        // if there aren't any notes and we're not on the plant page, render this h1
-        else {
-            return <h1>Add notes from your plant pages</h1>
-        }
+        return (
+            <Switch>
+                {/* if we're on the notes page */}
+                <Route path="/notes" render={() => {
+                    return (
+                        <>
+                            {/* only render search and notes if there are notes */}
+                            {this.props.notes.length
+                            ?
+                            <>
+                                <Search
+                                    searchTerm={this.state.searchTerm}
+                                    searchChangeHandler={this.searchChangeHandler}
+                                    type="Notes"
+                                />
+                                <br/><br/>
+                                <div className="ui cards">
+                                    {this.makeNotes()}
+                                </div>
+                            </>
+                            :
+                            // if there aren't notes, render this h1
+                            <h1>Add notes from your plant pages</h1>}
+                        </>
+                    )
+                }}/>
+                {/* if we're on a plant page */}
+                <Route path="/plants/:id" render={() => {
+                    return (
+                        <>
+                            {/* only render search and notes if there are notes */}
+                            {this.props.notes.length
+                            ?
+                            <>
+                                <Search
+                                    searchTerm={this.state.searchTerm}
+                                    searchChangeHandler={this.searchChangeHandler}
+                                    type="Notes"
+                                />
+                                <br/><br/>
+                                <div className="ui cards">
+                                    {this.makeNotes()}
+                                </div>
+                                <br/><br/>
+                            </>
+                            :
+                            null}
+                            {/* render new note no matter what */}
+                            <NewNote
+                                noteSubmitHandler={this.props.noteSubmitHandler}
+                                plant={this.props.plant}
+                                user={this.props.user}
+                            />
+                        </>
+                    )
+                }}/>
+            </Switch>
+        )
     }
 }
 

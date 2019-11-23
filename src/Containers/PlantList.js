@@ -62,9 +62,11 @@ class PlantList extends React.Component {
                     }
                 }} />
                 <Route path="/plants" render={() => {
-                    // if there are plants, render search, plants, and new plant components
-                    if (this.props.plants.length) {
-                        return (
+                    return (
+                        <>
+                            {/* only render search and plants if there are plants */}
+                            {this.props.plants.length
+                            ?
                             <>
                                 <Search
                                     searchTerm={this.state.searchTerm}
@@ -76,22 +78,16 @@ class PlantList extends React.Component {
                                     {this.makePlants()}
                                 </div>
                                 <br/><br/>
-                                <NewPlant
-                                    plantSubmitHandler={this.props.plantSubmitHandler}
-                                    user={this.props.user}
-                                />
                             </>
-                        )
-                    }
-                    // if there aren't plants, only render new plant component
-                    else {
-                        return (
+                            :
+                            null}
+                            {/* render new plant no matter what */}
                             <NewPlant
                                 plantSubmitHandler={this.props.plantSubmitHandler}
                                 user={this.props.user}
                             />
-                        )
-                    }
+                        </>
+                    )
                 }} />
             </Switch>
         )
