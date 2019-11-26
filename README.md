@@ -1,5 +1,7 @@
 # Plant Nanny
 
+*Developed by [Amy Resnik](https://github.com/aresnik11) and [Kunxi Griswold](https://github.com/kgriswo1).*
+
 Plant Nanny is a plant app for users to keep track of their plants and add notes about them.
 
 The frontend repo is deployed via Netlify, and the backend repo ([here](https://github.com/aresnik11/plant-nanny-backend)) is deployed via Heroku. Visit the site at [https://plant-nanny.netlify.com](https://plant-nanny.netlify.com).
