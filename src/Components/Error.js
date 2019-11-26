@@ -3,7 +3,7 @@ import React from 'react'
 const Error = () => {
     return (
         <div>
-            <h1>Sorry, we can't find that page.</h1>
+            <h1>Sorry, we can't find that page</h1>
             {/* css plant image from https://codepen.io/elorenn/pen/GMRygG */}
             <div className="plant-background">
                 <div className="stack">
