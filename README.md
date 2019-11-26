@@ -49,7 +49,10 @@ To test on your own machine:
 1. Visit the backend repo [here](https://github.com/aresnik11/plant-nanny-backend) and follow instructions on the README. The backend server should be started before the next steps are run.
 2. Clone this repository
 3. Update all fetch request urls in `App.js` to the url where your rails server is running
-4. In terminal run `npm install`
-5. In terminal run `npm start`
+4. In terminal run
+```
+npm install
+npm start
+```
 
 ## Enjoy!
