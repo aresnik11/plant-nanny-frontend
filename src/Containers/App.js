@@ -9,15 +9,24 @@ import MainContainer from './MainContainer';
 import Login from '../Components/Login'
 import Logo from '../Components/Logo'
 import ScrollToTop from '../Components/ScrollToTop'
+import Loading from '../Components/Loading'
 
 class App extends React.Component {
   state = {
     user: {},
     plants: [],
-    notes: []
+    notes: [],
+    loading: true
   }
 
   componentDidMount() {
+    // shows loading component until we can hit the backend
+    fetch("https://plant-nanny-backend.herokuapp.com")
+    .then(() => {
+        this.setState({
+            loading: false
+        })
+    })
     // if there is a token in localStorage, see if we can autologin the user
     if (localStorage.getItem("token")) {
       fetch("https://plant-nanny-backend.herokuapp.com/auto_login", {
@@ -236,49 +245,63 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        {/* Header component renders on every page */}
-        <Header logout={this.logout} user={this.state.user} />  
-        <div className="main-container">
-          {/* Logo component renders on every page */}
-          <Logo />
-          {/* auto scrolls each page back to the top */}
-          <ScrollToTop>
-            <Switch>
-              {/* if you are logged in and try to go to /login, redirect to welcome page (via main container). Otherwise go to login */}
-              <Route path="/login">
-                {localStorage.token
-                ?
-                <Redirect to="/"/>
-                :
-                <Login
-                  signUpSubmitHandler={this.signUpSubmitHandler}
-                  loginSubmitHandler={this.loginSubmitHandler}
-                  demoLogIn={this.demoLogIn}
-                />}
-              </Route>
-              {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page (via main container) */}
-              <Route path="/">
-                {localStorage.token
-                ?
-                <MainContainer
-                  user={this.state.user}
-                  plants={this.state.plants}
-                  notes={this.state.notes}
-                  noteSubmitHandler={this.noteSubmitHandler}
-                  plantSubmitHandler={this.plantSubmitHandler}
-                  deletePlant={this.deletePlant}
-                  deleteNote={this.deleteNote}
-                />
-                :
-                <Redirect to="/login" />}
-              </Route>
-            </Switch>
-          </ScrollToTop>
-        </div>   
-      </div>
-    );
+    // shows loading component until we can hit the backend
+    if (this.state.loading) {
+      return (
+        <>
+          <Header logout={this.logout} user={this.state.user} />  
+          <div className="main-container">
+            <Logo />
+            <Loading />
+          </div>
+        </>
+      )
+    }
+    else {
+      return (
+        <>
+          {/* Header component renders on every page */}
+          <Header logout={this.logout} user={this.state.user} />  
+          <div className="main-container">
+            {/* Logo component renders on every page */}
+            <Logo />
+            {/* auto scrolls each page back to the top */}
+            <ScrollToTop>
+              <Switch>
+                {/* if you are logged in and try to go to /login, redirect to welcome page (via main container). Otherwise go to login */}
+                <Route path="/login">
+                  {localStorage.token
+                  ?
+                  <Redirect to="/"/>
+                  :
+                  <Login
+                    signUpSubmitHandler={this.signUpSubmitHandler}
+                    loginSubmitHandler={this.loginSubmitHandler}
+                    demoLogIn={this.demoLogIn}
+                  />}
+                </Route>
+                {/* if you are not logged in and try to go to any page, redirect to login. Otherwise go to that page (via main container) */}
+                <Route path="/">
+                  {localStorage.token
+                  ?
+                  <MainContainer
+                    user={this.state.user}
+                    plants={this.state.plants}
+                    notes={this.state.notes}
+                    noteSubmitHandler={this.noteSubmitHandler}
+                    plantSubmitHandler={this.plantSubmitHandler}
+                    deletePlant={this.deletePlant}
+                    deleteNote={this.deleteNote}
+                  />
+                  :
+                  <Redirect to="/login" />}
+                </Route>
+              </Switch>
+            </ScrollToTop>
+          </div>   
+        </>
+      );
+    }
   }
 }
 
