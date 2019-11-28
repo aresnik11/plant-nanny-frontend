@@ -12,7 +12,11 @@ The frontend repo is deployed via Netlify, and the backend repo ([here](https://
 
 ## Demo
 
-You can watch a live demo of the app [here](#) or visit the site at [https://plant-nanny.netlify.com](https://plant-nanny.netlify.com).
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=mgBwnVsuJ-Q
+" target="_blank"><img src="http://img.youtube.com/vi/mgBwnVsuJ-Q/0.jpg" 
+alt="Plant Nanny Demo" width="240" height="180" /></a>
+
+You can watch a live demo of the app [here](https://youtu.be/mgBwnVsuJ-Q) or visit the site at [https://plant-nanny.netlify.com](https://plant-nanny.netlify.com).
 
 ## Technology Used
 
